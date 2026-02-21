@@ -20,4 +20,23 @@ const createProduct = async (req, res) => {
     }
 }
 
-export {getAllProducts, createProduct};
+const updateProduct = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after', runValidators: true})
+        res.status(200).json(product);
+    } catch (error) {
+        console.error(error);
+        
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id);
+        res.status(204).end();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export {getAllProducts, createProduct, updateProduct, deleteProduct};
